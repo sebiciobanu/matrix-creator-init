@@ -20,8 +20,20 @@ systemctl enable matrix-creator-firmware
 # echo "Loading firmware..."
 # service matrix-creator-firmware start
 
+# Determine the correct path for config.txt
+CONFIG_TXT_PATH="/boot/config.txt"
+if [ -f "/boot/firmware/config.txt" ]; then
+    CONFIG_TXT_PATH="/boot/firmware/config.txt"
+fi
+echo "Targeting config file: ${CONFIG_TXT_PATH}"
+
 echo "Enabling SPI"
-cp /boot/config.txt /boot/config.txt.bk && /usr/share/matrixlabs/matrixio-devices/matrixlabs_edit_settings.py /boot/config.txt.bk /usr/share/matrixlabs/matrixio-devices/config/boot_modifications.txt > /boot/config.txt
+# Backup the original config file and then apply modifications
+if cp "${CONFIG_TXT_PATH}" "${CONFIG_TXT_PATH}.bk"; then
+    /usr/share/matrixlabs/matrixio-devices/matrixlabs_edit_settings.py "${CONFIG_TXT_PATH}.bk" /usr/share/matrixlabs/matrixio-devices/config/boot_modifications.txt > "${CONFIG_TXT_PATH}"
+else
+    echo "Error: Could not back up ${CONFIG_TXT_PATH}. SPI enabling skipped."
+fi
 
 echo "Disable UART console"
 /usr/share/matrixlabs/matrixio-devices/matrixlabs_remove_console.py

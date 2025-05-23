@@ -3,13 +3,26 @@ Section: embedded
 Priority: optional
 Maintainer: MATRIX Labs <info@matrix.one>
 Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.5
+Standards-Version: 4.6.2
 Homepage: https://github.com/matrix-io/matrix-creator-init
 
 Package: matrixio-creator-init
 Conflicts: matrix-creator-init
 Replaces: matrix-creator-init
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},libmatrixio-creator-hal, matrixio-openocd, wiringpi, matrixio-xc3sprog, python-pip
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmatrixio-creator-hal, matrixio-openocd, wiringpi, matrixio-xc3sprog, python3-pip, libgpiod-utils
 Description: Install scripts that can program the MATRIX Creator FPGA and SAM3 IMU.
- Install scripts that can program the MATRIX Creator FPGA and SAM3 IMU.
+ Install scripts that can program the MATRIX Creator FPGA and SAM3 IMU on Raspbian.
+ This version includes updates for Raspbian Bookworm compatibility, primarily by
+ using libgpiod for GPIO access in helper scripts.
+ .
+ Note on wiringpi: This package depends on libmatrixio-creator-hal, which
+ historically has a dependency on wiringpi. Wiringpi is deprecated on
+ Raspbian Bookworm and may require workarounds (e.g., gpio-legacy overlay)
+ for libmatrixio-creator-hal to function correctly if the HAL has not been
+ updated to remove the wiringpi dependency.
+ .
+ Note on xc3sprog: The xc3sprog drivers used by this package (sysfsgpio_creator,
+ sysfsgpio_voice) likely rely on sysfs GPIO access. On Raspbian Bookworm,
+ the 'dtoverlay=gpio-legacy' kernel parameter might be needed in
+ /boot/firmware/config.txt for these to work.

@@ -1,3 +1,19 @@
+matrixio-creator-init (0.5.0) UNRELEASED; urgency=medium
+
+  * Updated for Raspbian Bookworm compatibility:
+    - Modified helper scripts (fpga-program.bash, voice_esp32_reset, etc.)
+      to use `gpioset` (from libgpiod-utils) instead of sysfs for GPIO control.
+    - Added `libgpiod-utils` to Depends in debian/control.
+    - Changed `python-pip` dependency to `python3-pip`.
+    - Updated `Standards-Version` to 4.6.2.
+    - Added notes to debian/control regarding potential `wiringpi` (via
+      libmatrixio-creator-hal) and `xc3sprog` (sysfs drivers) compatibility
+      issues on Bookworm and the need for workarounds like `gpio-legacy` overlay.
+    - Updated CMake build system to use pkg-config for libmatrixio-creator-hal
+      and added comments regarding Bookworm compatibility.
+
+ -- Your Name <your.email@example.com>  Mon, 29 Jul 2024 10:00:00 +0000
+
 matrixio-creator-init (0.4.17) unstable; urgency=medium
 
   * Support for Raspberry Pi 4 (sysfs workaround)

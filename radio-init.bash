@@ -1,13 +1,9 @@
 #!/bin/bash
+# This script uses gpioset to control GPIO pins.
+# Assumes libgpiod-utils is installed and gpiochip0 corresponds to BCM pins.
 
-for i in 21 16
-do
-  if [ ! -d /sys/class/gpio/gpio$i ]
-  then
-    echo $i > /sys/class/gpio/export
-    echo out > /sys/class/gpio/gpio${i}/direction
-  fi
-done
+# Exporting GPIOs 21 and 16 and setting direction is not needed with gpioset.
+# gpioset handles this implicitly when setting the value.
 
-echo 0 > /sys/class/gpio/gpio16/value
-echo 1 > /sys/class/gpio/gpio21/value
+gpioset gpiochip0 16=0
+gpioset gpiochip0 21=1
