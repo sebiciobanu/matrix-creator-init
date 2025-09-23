@@ -1,4 +1,6 @@
 #!/bin/bash
+# This script uses gpioset to control GPIO pins.
+# Assumes libgpiod-utils is installed and gpiochip0 corresponds to BCM pins.
 
 CHECKSUM=2f58e62dcd36cf18490c80435fb29992
 LOG_FILE=/tmp/em358-program.log
@@ -10,38 +12,31 @@ function super_reset()
   # gpio20 - EM_NRST - EM3588 RESET (active low)
   # gpio23 - EM3588 POWER ENABLE
 
-  # Set out mode  
-  for j in 18 19 20 23
-  do
-    echo out > /sys/class/gpio/gpio$j/direction
-  done
-
-  for k in 4 17 22 27
-  do
-    echo in > /sys/class/gpio/gpio$k/direction
-  done
+  # Set out mode for pins 18, 19, 20, 23 is implicit with gpioset.
+  # Pins 4, 17, 22, 27 were set to 'in', this is their default state or managed by gpioget if read.
+  # No explicit gpioget needed here as these pins are not read in this script.
 
   #Power EM_358 OFF 
-  echo 1 > /sys/class/gpio/gpio18/value
-  echo 1 > /sys/class/gpio/gpio19/value
-  echo 1 > /sys/class/gpio/gpio20/value
-  echo 0 > /sys/class/gpio/gpio23/value
+  gpioset gpiochip0 18=1
+  gpioset gpiochip0 19=1
+  gpioset gpiochip0 20=1
+  gpioset gpiochip0 23=0
   sleep 0.5
 
   #Power ON
-  echo 1 > /sys/class/gpio/gpio23/value
+  gpioset gpiochip0 23=1
   sleep 0.5
 
-  echo 0 > /sys/class/gpio/gpio18/value
-  echo 0 > /sys/class/gpio/gpio19/value
-  echo 0 > /sys/class/gpio/gpio20/value
+  gpioset gpiochip0 18=0
+  gpioset gpiochip0 19=0
+  gpioset gpiochip0 20=0
 
   sleep 0.5
-  echo 1 > /sys/class/gpio/gpio18/value
-  echo 1 > /sys/class/gpio/gpio20/value
+  gpioset gpiochip0 18=1
+  gpioset gpiochip0 20=1
 
   sleep 0.5
-  echo 1 > /sys/class/gpio/gpio19/value
+  gpioset gpiochip0 19=1
 }
 
 function check_flash_status() {
@@ -55,22 +50,15 @@ function try_program() {
 }
 
 function enable_program() {
-  
-  echo 1 > /sys/class/gpio/gpio19/value
-  echo 0 > /sys/class/gpio/gpio20/value
-  echo 1 > /sys/class/gpio/gpio20/value
+  gpioset gpiochip0 19=1
+  gpioset gpiochip0 20=0
+  gpioset gpiochip0 20=1
 
   echo "*** Running the program instead of the bootloader" 
-
 }
 
-for i in 4 17 18 19 20 22 23 27
-do
-  if [ ! -d /sys/class/gpio/gpio$i ]
-  then
-    echo $i > /sys/class/gpio/export
-  fi
-done
+# Exporting GPIOs is not needed with libgpiod.
+# Direction setting is also handled by gpioset for output pins.
 
 super_reset
 

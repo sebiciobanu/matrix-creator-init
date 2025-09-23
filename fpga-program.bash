@@ -1,24 +1,28 @@
 #!/bin/bash
+# This script uses gpioset to control GPIO pins.
+# Assumes libgpiod-utils is installed and gpiochip0 corresponds to BCM pins.
 
 cd /usr/share/matrixlabs/matrixio-devices
 
 P4DETECT=$(grep "Pi 4" /sys/firmware/devicetree/base/model)
 
 function reset_voice(){
-  echo 26 > /sys/class/gpio/export 2>/dev/null
-  echo out > /sys/class/gpio/gpio26/direction
-  echo 1 > /sys/class/gpio/gpio26/value
-  echo 0 > /sys/class/gpio/gpio26/value
-  echo 1 > /sys/class/gpio/gpio26/value 
+  # Set GPIO26 to 1 (output high)
+  gpioset gpiochip0 26=1
+  # Set GPIO26 to 0 (output low)
+  gpioset gpiochip0 26=0
+  # Set GPIO26 to 1 (output high)
+  gpioset gpiochip0 26=1
   sleep 2
 }
 
 function reset_creator(){
-  echo 18 > /sys/class/gpio/export 2>/dev/null
-  echo out > /sys/class/gpio/gpio18/direction
-  echo 1 > /sys/class/gpio/gpio18/value
-  echo 0 > /sys/class/gpio/gpio18/value
-  echo 1 > /sys/class/gpio/gpio18/value
+  # Set GPIO18 to 1 (output high)
+  gpioset gpiochip0 18=1
+  # Set GPIO18 to 0 (output low)
+  gpioset gpiochip0 18=0
+  # Set GPIO18 to 1 (output high)
+  gpioset gpiochip0 18=1
 }
 
 function try_program_creator() {
@@ -31,6 +35,14 @@ function try_program_creator() {
 
   reset_creator
   sleep 0.1
+  # The $CABLE variable is set to 'sysfsgpio_creator' on Raspberry Pi 4 and later,
+  # or 'matrix_creator' on older Raspberry Pi models.
+  # The 'sysfsgpio_creator' driver for xc3sprog likely depends on the sysfs GPIO interface.
+  # For this to work on Raspbian Bookworm or newer, which have deprecated direct sysfs GPIO access,
+  # the 'dtoverlay=gpio-legacy' parameter may need to be added to /boot/firmware/config.txt
+  # (or /boot/config.txt on older OS versions) and the system rebooted.
+  # The 'matrix_creator' driver's compatibility with Bookworm also depends on how
+  # matrixio-xc3sprog handles GPIO access for that specific driver (it might use wiringPi or sysfs).
   xc3sprog -c $CABLE blob/system_creator.bit -p 1 > /dev/null 2> /dev/null
 }
 
@@ -44,6 +56,14 @@ function try_program_voice() {
 
   reset_voice
   sleep 0.1
+  # The $CABLE variable is set to 'sysfsgpio_voice' on Raspberry Pi 4 and later,
+  # or 'matrix_voice' on older Raspberry Pi models.
+  # The 'sysfsgpio_voice' driver for xc3sprog likely depends on the sysfs GPIO interface.
+  # For this to work on Raspbian Bookworm or newer, which have deprecated direct sysfs GPIO access,
+  # the 'dtoverlay=gpio-legacy' parameter may need to be added to /boot/firmware/config.txt
+  # (or /boot/config.txt on older OS versions) and the system rebooted.
+  # The 'matrix_voice' driver's compatibility with Bookworm also depends on how
+  # matrixio-xc3sprog handles GPIO access for that specific driver (it might use wiringPi or sysfs).
   xc3sprog -c $CABLE blob/bscan_spi_s6lx9_ftg256.bit > /dev/null 2> /dev/null
   sleep 0.1
   xc3sprog -c $CABLE -I blob/system_voice.bit > /dev/null 2> /dev/null
@@ -91,4 +111,3 @@ check_voice
 
 echo "**** Could not program FPGA"
 exit 1
-
