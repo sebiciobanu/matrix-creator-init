@@ -25,9 +25,9 @@ case "${MATRIX_DEVICE}" in
     voice_esp32_reset
     read_voice_config
     if [ "${ESP32_RESET}" == "FALSE" ]; then
-      echo 1 > /sys/class/gpio/gpio25/value
+      gpioset gpiochip0 25=1
     else 
-      echo 0 > /sys/class/gpio/gpio25/value
+      gpioset gpiochip0 25=0
     fi
     ;;
 esac
