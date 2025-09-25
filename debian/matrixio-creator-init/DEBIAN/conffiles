@@ -1,0 +1,4 @@
+/etc/matrixio-devices/matrix_voice.config
+/etc/modprobe.d/matrix_devices.conf
+/etc/modules-load.d/matrix-mics.conf
+/etc/modules-load.d/raspicam.conf

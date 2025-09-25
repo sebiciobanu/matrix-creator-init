@@ -1,0 +1,12 @@
+Package: matrixio-creator-init-dbgsym
+Source: matrixio-creator-init
+Version: 0.5.0
+Auto-Built-Package: debug-symbols
+Architecture: arm64
+Maintainer: MATRIX Labs <info@matrix.one>
+Installed-Size: 68
+Depends: matrixio-creator-init (= 0.5.0)
+Section: debug
+Priority: optional
+Description: debug symbols for matrixio-creator-init
+Build-Ids: 8f5b9bde76f6085573a983c6f1ef4d33b8093957 cebffe7cc832af2ffb735da64f4edd1110429e45

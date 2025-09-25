@@ -1,0 +1,6 @@
+/opt/robots/matrix-creator-init/obj-aarch64-linux-gnu/CMakeFiles/edit_cache.dir
+/opt/robots/matrix-creator-init/obj-aarch64-linux-gnu/CMakeFiles/rebuild_cache.dir
+/opt/robots/matrix-creator-init/obj-aarch64-linux-gnu/cpp/CMakeFiles/firmware_info.dir
+/opt/robots/matrix-creator-init/obj-aarch64-linux-gnu/cpp/CMakeFiles/fpga_info.dir
+/opt/robots/matrix-creator-init/obj-aarch64-linux-gnu/cpp/CMakeFiles/edit_cache.dir
+/opt/robots/matrix-creator-init/obj-aarch64-linux-gnu/cpp/CMakeFiles/rebuild_cache.dir

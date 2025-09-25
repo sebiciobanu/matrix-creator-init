@@ -37,7 +37,8 @@ find_package(PkgConfig REQUIRED)
 # The package name might be 'matrix-creator-hal' or 'libmatrixio-creator-hal'
 # depending on how the HAL library's .pc file is named.
 # Using 'libmatrixio-creator-hal' as it's commonly used for library .pc files.
-pkg_check_modules(MATRIX_HAL REQUIRED libmatrixio-creator-hal)
+set(MATRIX_HAL_INCLUDE_DIRS /usr/include)
+set(MATRIX_HAL_LIBRARIES matrix_creator_hal)
 
 # Include HAL directories
 if(MATRIX_HAL_INCLUDE_DIRS)
