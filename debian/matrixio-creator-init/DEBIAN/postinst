@@ -16,6 +16,6 @@ echo "Disable UART console"
 
 echo "Installing esptool"
 
-pip install esptool
+pip install esptool --break-system-packages
 
 echo "Please restart your Raspberry Pi after installation"

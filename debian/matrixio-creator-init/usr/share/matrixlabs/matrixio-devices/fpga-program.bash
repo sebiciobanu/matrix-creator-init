@@ -1,10 +1,12 @@
 #!/bin/bash
 # This script uses gpioset to control GPIO pins.
-# Assumes libgpiod-utils is installed and gpiochip0 corresponds to BCM pins.
+# Assumes gpiod is installed and gpiochip0 corresponds to BCM pins.
 
 cd /usr/share/matrixlabs/matrixio-devices
 
-P4DETECT=$(grep "Pi 4" /sys/firmware/devicetree/base/model)
+if grep -q "Pi 4" /sys/firmware/devicetree/base/model 2>/dev/null; then
+  P4DETECT="true"
+fi
 
 function reset_voice(){
   # Set GPIO26 to 1 (output high)
@@ -28,7 +30,7 @@ function reset_creator(){
 function try_program_creator() {
   if [ -n "$P4DETECT" ]; 
   then 
-	  CABLE=sysfsgpio_creator
+	  CABLE=gpiod_creator
   else
 	  CABLE=matrix_creator
   fi
@@ -43,13 +45,13 @@ function try_program_creator() {
   # (or /boot/config.txt on older OS versions) and the system rebooted.
   # The 'matrix_creator' driver's compatibility with Bookworm also depends on how
   # matrixio-xc3sprog handles GPIO access for that specific driver (it might use wiringPi or sysfs).
-  xc3sprog -c $CABLE blob/system_creator.bit -p 1 > /dev/null 2> /dev/null
+  xc3sprog -c $CABLE blob/system_creator.bit -p 1
 }
 
 function try_program_voice() {
   if [ -n "$P4DETECT" ]; 
   then 
-	  CABLE=sysfsgpio_voice
+	  CABLE=gpiod_voice
   else
 	  CABLE=matrix_voice
   fi
@@ -64,9 +66,9 @@ function try_program_voice() {
   # (or /boot/config.txt on older OS versions) and the system rebooted.
   # The 'matrix_voice' driver's compatibility with Bookworm also depends on how
   # matrixio-xc3sprog handles GPIO access for that specific driver (it might use wiringPi or sysfs).
-  xc3sprog -c $CABLE blob/bscan_spi_s6lx9_ftg256.bit > /dev/null 2> /dev/null
+  xc3sprog -c $CABLE blob/bscan_spi_s6lx9_ftg256.bit
   sleep 0.1
-  xc3sprog -c $CABLE -I blob/system_voice.bit > /dev/null 2> /dev/null
+  xc3sprog -c $CABLE -I blob/system_voice.bit
 }
 
 function update_voice(){

@@ -2,8 +2,8 @@ Package: matrixio-creator-init
 Version: 0.5.0
 Architecture: arm64
 Maintainer: MATRIX Labs <info@matrix.one>
-Installed-Size: 1646
-Depends: libc6 (>= 2.34), libstdc++6 (>= 4.4), libmatrixio-creator-hal, matrixio-openocd, wiringpi, matrixio-xc3sprog, python3-pip, libgpiod-utils
+Installed-Size: 1951
+Depends: libc6 (>= 2.34), libstdc++6 (>= 4.4), libmatrixio-creator-hal, matrixio-openocd, wiringpi, matrixio-xc3sprog, python3-pip, gpiod
 Conflicts: matrix-creator-init
 Replaces: matrix-creator-init
 Section: embedded

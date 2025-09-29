@@ -10,7 +10,7 @@ Package: matrixio-creator-init
 Conflicts: matrix-creator-init
 Replaces: matrix-creator-init
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libmatrixio-creator-hal, matrixio-openocd, wiringpi, matrixio-xc3sprog, python3-pip, libgpiod-utils
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmatrixio-creator-hal, matrixio-openocd, wiringpi, matrixio-xc3sprog, python3-pip, gpiod
 Description: Install scripts that can program the MATRIX Creator FPGA and SAM3 IMU.
  Install scripts that can program the MATRIX Creator FPGA and SAM3 IMU on Raspbian.
  This version includes updates for Raspbian Bookworm compatibility, primarily by

@@ -1,8 +1,4 @@
-blob/bscan_spi_s6lx9_ftg256.bit usr/share/matrixlabs/matrixio-devices
-blob/ch.bin usr/share/matrixlabs/matrixio-devices
-blob/ncp_xon_xoff.hex usr/share/matrixlabs/matrixio-devices
-blob/system_creator.bit usr/share/matrixlabs/matrixio-devices
-blob/system_voice.bit usr/share/matrixlabs/matrixio-devices
+blob usr/share/matrixlabs/matrixio-devices
 cfg usr/share/matrixlabs/matrixio-devices
 sam3-program.bash usr/share/matrixlabs/matrixio-devices
 fpga-program.bash usr/share/matrixlabs/matrixio-devices

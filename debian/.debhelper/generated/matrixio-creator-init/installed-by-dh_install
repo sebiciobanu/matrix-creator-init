@@ -1,8 +1,4 @@
-./blob/bscan_spi_s6lx9_ftg256.bit
-./blob/ch.bin
-./blob/ncp_xon_xoff.hex
-./blob/system_creator.bit
-./blob/system_voice.bit
+./blob
 ./cfg
 ./sam3-program.bash
 ./fpga-program.bash
