@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 ' Modify Raspberry Pi settins '
 
@@ -39,18 +39,18 @@ for new_line in read_lines(sys.argv[2]):
 
 for original in ORIGINAL_LINES:
     if original[0] == 'REMARK':
-        print original[1]
+        print(original[1])
     else:
         key, value = key_and_value(original)
         if key in KEYS_TO_CHANGE and KEYS_TO_CHANGE[key] == value:
-            print '{}={}'.format(key, KEYS_TO_CHANGE[key])
+            print('{}={}'.format(key, KEYS_TO_CHANGE[key]))
             del KEYS_TO_CHANGE[key]
         else:
-            print original[1]
+            print(original[1])
 
 if len(KEYS_TO_CHANGE):
-    print '# Lines added by matrixlabs_edit_settings.py.'
-    print '# Commented definitions of the settings might be above.'
+    print('# Lines added by matrixlabs_edit_settings.py.')
+    print('# Commented definitions of the settings might be above.')
 
     for key  in sorted(KEYS_TO_CHANGE):
-        print '{}={}'.format(key, KEYS_TO_CHANGE[key])
+        print('{}={}'.format(key, KEYS_TO_CHANGE[key]))

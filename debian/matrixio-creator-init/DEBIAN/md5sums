@@ -16,8 +16,8 @@ facc3b4ca966d7147948c3ce7cd98377  usr/share/matrixlabs/matrixio-devices/firmware
 c176a26e16200b53dcd7e0fd30da97ce  usr/share/matrixlabs/matrixio-devices/fpga-program.bash
 a9b32384857f56fa6c9438b3cb5b4128  usr/share/matrixlabs/matrixio-devices/fpga_info
 c93ac8f079afdd3763cab27d443c3c10  usr/share/matrixlabs/matrixio-devices/matrix-init.bash
-7884f5fdbed5a3a439990f791757457a  usr/share/matrixlabs/matrixio-devices/matrixlabs_edit_settings.py
-fd2e1413678dca8b2468dce38e47ddb2  usr/share/matrixlabs/matrixio-devices/matrixlabs_remove_console.py
+c0f66517245f314145d797e4b5404f7f  usr/share/matrixlabs/matrixio-devices/matrixlabs_edit_settings.py
+e305cbdd00c5bb66d5d0270de1259a41  usr/share/matrixlabs/matrixio-devices/matrixlabs_remove_console.py
 91efbac0d5a908a5906ee50671e3247e  usr/share/matrixlabs/matrixio-devices/mcu_firmware.version
 65889a107b0be20275451640dd9b9bf1  usr/share/matrixlabs/matrixio-devices/ncp_xon_xoff.hex
 b7c34c77b90d28cc107bf352429a0a15  usr/share/matrixlabs/matrixio-devices/radio-init.bash
